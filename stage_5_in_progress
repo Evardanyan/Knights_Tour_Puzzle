@@ -1,0 +1,253 @@
+# Write your code here
+def knight_move():
+    try:
+        while True:
+            x1, y1 = input("Enter your board dimensions: ").split()
+            x1 = int(x1)
+            y1 = int(y1)
+            if (x1 < 0 or x1 == 0) or (y1 < 0 or y1 == 0):
+                print("Invalid dimensions!")
+            else:
+                break
+        while True:
+            x, y = input("Enter the knight's starting position: ").split()
+            x1 = int(x1)
+            y1 = int(y1)
+            x = int(x)
+            y = int(y)
+
+            if (x > x1 or x <= 0) or (y > y1 or y <= 0):
+                print("Invalid position!")
+            else:
+                # print()
+                # print("Here are the possible moves:")
+
+                # show_cheeseboard(x1, y1, x, y)
+                # break
+                multiple_move(x1, y1, x, y)
+    except ValueError:
+        print("Invalid dimensions")
+
+
+def check_combination(x, y, x1, y1, x_x, x_y):
+    count = 0
+    if y >= y1 - 2 > 0 and x >= x1 + 1 and (x1 + 1 != x_x or y1 - 2 != x_y):
+        count += 1
+    if y >= y1 - 2 > 0 and x >= x1 - 1 > 0 and (x1 - 1 != x_x or y1 - 2 != x_y):
+        count += 1
+    if y >= y1 + 2 and x >= x1 + 1 and (x1 + 1 != x_x or y1 + 2 != x_y):
+        count += 1
+    if y >= y1 + 2 and x >= x1 - 1 > 0 and (x1 - 1 != x_x or y1 + 2 != x_y):
+        count += 1
+    if y >= y1 - 1 > 0 and x >= x1 + 2 and (x1 + 2 != x_x or y1 - 1 != x_y):
+        count += 1
+    if y >= y1 - 1 > 0 and x >= x1 - 2 > 0 and (x1 - 2 != x_x or y1 - 1 != x_y):
+        count += 1
+    if y >= y1 + 1 and x >= x1 + 2 and (x1 + 2 != x_x or y1 + 1 != x_y):
+        count += 1
+    if y >= y1 + 1 and x >= x1 - 2 > 0 and (x1 - 2 != x_x or y1 + 1 != x_y):
+        count += 1
+    return count
+
+
+def show_combination_on_cheeseboard(cheeseboard, x, y, x1, y1):
+    x_x = x1
+    # x_y = y - y1
+    x_y = y1
+    # cheeseboard = cheeseboard = [["__" for i in range(x + 2)] for j in range(y)]
+    # cheeseboard[y - y1][x1] = " X"
+    if y > y - y1 - 2 >= 0 and x1 + 1 <= x and x1 - 1 <= x:
+        y2 = y1 + 2
+        x2 = x1 + 1
+        x3 = x1 - 1
+        if cheeseboard[y - y1 - 2][x1 + 1] != " *":
+            cheeseboard[y - y1 - 2][x1 + 1] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+        elif cheeseboard[y - y1 - 2][x1 - 1] != " *":
+            cheeseboard[y - y1 - 2][x1 - 1] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+    if y > y - y1 + 2 >= 0 and x1 + 1 <= x and x1 - 1 <= x:
+        # y2 = y - y1 + 2
+        y2 = y1 - 2
+        x2 = x1 + 1
+        x3 = x1 - 1
+        if cheeseboard[y - y1 - 2][x1 + 1] != " *":
+            cheeseboard[y - y1 + 2][x1 + 1] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+        elif cheeseboard[y - y1 - 2][x1 - 1] != " *":
+            cheeseboard[y - y1 + 2][x1 - 1] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+        # cheeseboard[y - y1 + 2][x1 + 1] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+        # cheeseboard[y - y1 + 2][x1 - 1] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+    if y > y - y1 - 1 >= 0 and x1 + 2 <= x and x1 - 2 <= x:
+        y2 = y1 + 1
+        x2 = x1 + 2
+        x3 = x1 - 2
+        if cheeseboard[y - y1 - 2][x1 + 1] != " *":
+            cheeseboard[y - y1 - 1][x1 + 2] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+        elif cheeseboard[y - y1 - 2][x1 - 1] != " *":
+            cheeseboard[y - y1 - 1][x1 - 2] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+        # cheeseboard[y - y1 - 1][x1 + 2] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+        # cheeseboard[y - y1 - 1][x1 - 2] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+    if y > y - y1 + 1 >= 0 and x1 + 2 <= x and x1 - 2 <= x:
+        y2 = y1 - 1
+        x2 = x1 + 2
+        x3 = x1 - 2
+        if cheeseboard[y - y1 - 2][x1 + 1] != " *":
+            cheeseboard[y - y1 + 1][x1 + 2] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+        elif cheeseboard[y - y1 - 2][x1 - 1] != " *":
+            cheeseboard[y - y1 + 1][x1 - 2] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+        # cheeseboard[y - y1 + 1][x1 + 2] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+        # cheeseboard[y - y1 + 1][x1 - 2] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+    return cheeseboard
+
+
+def show_cheeseboard(x, y, x1, y1):
+    x_x = x1
+    # x_y = y - y1
+    x_y = y1
+    if x > 9 and y > 9:
+        cheeseboard = [["___" for i in range(x + 2)] for j in range(y)]
+        cheeseboard[y - y1][x1] = "  X"
+        if y - y1 - 2 < y and x1 + 1 <= x and x1 - 1 <= x:
+            y2 = y - y1 - 2
+            x2 = x1 + 1
+            # check_combination(x, y. x2, y2)
+            # cheeseboard[y - y1 - 2][x1 + 1] = " O"
+            cheeseboard[y - y1 - 2][x1 + 1] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+            cheeseboard[y - y1 - 2][x1 - 1] = " O"
+        if y - y1 + 2 < y and x1 + 1 <= x and x1 - 1 <= x:
+            cheeseboard[y - y1 + 2][x1 + 1] = " O"
+            cheeseboard[y - y1 + 2][x1 - 1] = " O"
+        if y - y1 - 1 < y and x1 + 2 <= x and x1 - 2 <= x:
+            cheeseboard[y - y1 - 1][x1 + 2] = " O"
+            cheeseboard[y - y1 - 1][x1 - 2] = " O"
+        if y - y1 + 1 < y and x1 + 2 <= x and x1 - 2 <= x:
+            cheeseboard[y - y1 + 1][x1 + 2] = " O"
+            cheeseboard[y - y1 + 1][x1 - 2] = " O"
+    else:
+        cheeseboard = [["__" for i in range(x + 2)] for j in range(y)]
+        cheeseboard[y - y1][x1] = " X"
+        if y > y - y1 - 2 >= 0 and x1 + 1 <= x and x1 - 1 <= x:
+            y2 = y1 + 2
+            x2 = x1 + 1
+            x3 = x1 - 1
+            cheeseboard[y - y1 - 2][x1 + 1] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+            cheeseboard[y - y1 - 2][x1 - 1] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+            # cheeseboard[y - y1 - 2][x1 + 1] = " O"
+            # cheeseboard[y - y1 - 2][x1 - 1] = " O"
+        if y > y - y1 + 2 >= 0 and x1 + 1 <= x and x1 - 1 <= x:
+            # y2 = y - y1 + 2
+            y2 = y1 - 2
+            x2 = x1 + 1
+            x3 = x1 - 1
+            cheeseboard[y - y1 + 2][x1 + 1] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+            cheeseboard[y - y1 + 2][x1 - 1] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+            # cheeseboard[y - y1 + 2][x1 + 1] = " O"
+            # cheeseboard[y - y1 + 2][x1 - 1] = " O"
+        if y > y - y1 - 1 >= 0 and x1 + 2 <= x and x1 - 2 <= x:
+            # y2 = y - y1 - 1
+            y2 = y1 + 1
+            x2 = x1 + 2
+            x3 = x1 - 2
+            cheeseboard[y - y1 - 1][x1 + 2] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+            cheeseboard[y - y1 - 1][x1 - 2] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+            # cheeseboard[y - y1 - 1][x1 + 2] = " O"
+            # cheeseboard[y - y1 - 1][x1 - 2] = " O"
+        if y > y - y1 + 1 >= 0 and x1 + 2 <= x and x1 - 2 <= x:
+            # y2 = y - y1 + 1
+            y2 = y1 - 1
+            x2 = x1 + 2
+            x3 = x1 - 2
+            cheeseboard[y - y1 + 1][x1 + 2] = f" {check_combination(x, y, x2, y2, x_x, x_y)}"
+            cheeseboard[y - y1 + 1][x1 - 2] = f" {check_combination(x, y, x3, y2, x_x, x_y)}"
+            # cheeseboard[y - y1 + 1][x1 + 2] = " O"
+            # cheeseboard[y - y1 + 1][x1 - 2] = " O"
+    new_val = [y - i for i in range(y)]
+    for new_val, subList in zip(new_val, cheeseboard):
+        subList[0] = f"{new_val}|"
+        subList[x + 1] = f"|"
+    print("", ((x * 3) + 3) * "-")
+    count = y
+    for i in cheeseboard:
+        clean_comma = ", ".join(i)
+        print(clean_comma.replace(", ", " "))
+        count -= 1
+    print("", ((x * 3) + 3) * "-")
+    horizontal_number = "    "
+    for i in range(1, x + 1):
+        horizontal_number = horizontal_number + str(i) + "  "
+    horizontal_number.rstrip()
+    print(horizontal_number)
+
+
+def multiple_move(board_x, board_y, move_x, move_y):
+    show_cheeseboard(board_x, board_y, move_x, move_y)
+    while True:
+        x, y = input("Enter your next move: ").split()
+        move_x = int(x)
+        move_y = int(y)
+        show_cheeseboard(board_x, board_y, move_x, move_y)
+
+
+moves_x = []
+moves_y = []
+
+
+def cheese_board(board_x, board_y, move_x, move_y):
+    moves_x.append(move_x)
+    moves_y.append(move_y)
+    print(moves_x)
+    print(moves_y)
+    cheeseboard = [["__" for i in range(board_x + 2)] for j in range(board_y)]
+    print(len(cheeseboard[0]))
+    print(len(cheeseboard))
+    check_win_flag = True
+    for i, j in zip(moves_x, moves_y):
+        if (len(moves_x) == 1 and len(moves_y) == 1) or (i == moves_x[-1] and j == moves_y[-1]):
+            cheeseboard = show_combination_on_cheeseboard(cheeseboard, board_x, board_y, i, j)
+            cheeseboard[board_y - j][i] = " X"
+            print(cheeseboard)
+            for k in range(len(cheeseboard)):
+                for c in range(len(cheeseboard[k])):
+                    if cheeseboard[k][c] == "__":
+                        check_win_flag = False
+                        break
+            print(check_win_flag)
+            if check_win_flag:
+                print("What a great tour! Congratulations!")
+                return False
+        elif len(moves_x) > 1 and len(moves_y) > 1 and i != moves_x[:-1]:
+            cheeseboard[board_y - j][i] = " *"
+    new_val = [board_y - i for i in range(board_y)]
+    for new_val, subList in zip(new_val, cheeseboard):
+        subList[0] = f"{new_val}|"
+        subList[board_x + 1] = f"|"
+    print("", ((board_x * 3) + 3) * "-")
+    count = board_y
+    for i in cheeseboard:
+        clean_comma = ", ".join(i)
+        print(clean_comma.replace(", ", " "))
+        count -= 1
+    print("", ((board_x * 3) + 3) * "-")
+    horizontal_number = "    "
+    for i in range(1, board_x + 1):
+        horizontal_number = horizontal_number + str(i) + "  "
+    horizontal_number.rstrip()
+    print(horizontal_number)
+
+
+def start():
+    x1, y1 = input("Enter your board dimensions: ").split()
+    x1 = int(x1)
+    y1 = int(y1)
+    x, y = input("Enter the knight's starting position: ").split()
+    x = int(x)
+    y = int(y)
+    cheese_board(x1, y1, x, y)
+    while True:
+        x, y = input("Enter your next move: ").split()
+        x = int(x)
+        y = int(y)
+        cheese_board(x1, y1, x, y)
+
+
+start()
+# show_cheeseboard(4, 4, 2, 2)
+# knight_move()
