@@ -22,11 +22,11 @@ def knight_move():
                 cheese_board(x1, y1, x, y)
                 count = 1
                 while True:
-                # print()
-                # print("Here are the possible moves:")
+                    # print()
+                    # print("Here are the possible moves:")
 
-                # show_cheeseboard(x1, y1, x, y)
-                # break
+                    # show_cheeseboard(x1, y1, x, y)
+                    # break
                     x, y = input("Enter your next move: ").split()
                     x = int(x)
                     y = int(y)
@@ -46,7 +46,7 @@ def knight_move():
                             break
     except ValueError:
         print("Invalid dimensions")
-
+        knight_move()
 
 
 def start():
